@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 function Display() {
     const [day, setDay] = useState(0);
@@ -14,12 +14,29 @@ function Display() {
     const [years, setYears] = useState(0);
     const [months, setMonths] = useState(0);
     const [days, setDays] = useState(0);
+    let errorDay = ' ';
+    let errorMonth = ' ';
+    let errorYear = ' ';
     function toggleDisplay() {
         setYears(yearsCalc);
         setMonths(monthsCalc);
         setDays(daysCalc);
     }
+    function validate() {
+        if (day > 31 || day < 1) {
+            errorDay = 'Invalid day';
+        } else errorDay = ' ';
+        if (month > 12 || month < 1) {
+            errorMonth = 'Invalid month';
+        } else errorMonth = ' ';
+        if (year > 2022 || year < 1900) {
+            errorYear = 'Invalid year';
+        } else errorYear = ' ';
+    }
 
+    useEffect(() => {
+        validate();
+    });
 
     return (
         <div>
@@ -27,14 +44,17 @@ function Display() {
             <div className="input">
                 <h2>DAY</h2>
                 <input type="number" name="day" id="day" min="1" max="31" required onChange={(e) => setDay(Number(e.target.value))}/>
+                <span id="errorDay">{errorDay}</span>
             </div>
             <div className="input">
                 <h2>MONTH</h2>
                 <input type="number" name="month" id="month" min="1" max="12" required onChange={(e) => setMonth(Number(e.target.value))} />
+                <span id="errorMonth">{errorMonth}</span>
             </div>
             <div className="input">
                 <h2>YEAR</h2>
                 <input type="number" name="year" id="year" min="1900" max="2022" required onChange={(e) => setYear(Number(e.target.value))}/>
+                <span id="errorYear">{errorYear}</span>
             </div>
 
             <button onClick={() => toggleDisplay()}>Calculate</button>
