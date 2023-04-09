@@ -4,19 +4,20 @@ function Display() {
     const [day, setDay] = useState(0);
     const [month, setMonth] = useState(0);
     const [year, setYear] = useState(0);
-    const yearToday = Date.prototype.getFullYear();
-    const monthToday = Date.prototype.getMonth();
-    const dayToday = Date.prototype.getDay();
-    const yearsCalc = yearToday - year;
-    const monthsCalc = monthToday - month;
-    const daysCalc = dayToday - day;
-    let years: number | string = "- -"
-    let months: number | string = "- -"
-    let days: number | string = "- -"
+    const yearToday = new Date(Date.now()).getFullYear();
+    const monthToday = new Date(Date.now()).getMonth();
+    const dayToday = new Date(Date.now()).getDate();
+    let yearsCalc = yearToday - year - 1;
+    if (monthToday > month || (monthToday === month) && (dayToday > day)) yearsCalc++;
+    const monthsCalc = 12 + monthToday - month;
+    const daysCalc = 31 + dayToday - day;
+    const [years, setYears] = useState(0);
+    const [months, setMonths] = useState(0);
+    const [days, setDays] = useState(0);
     function toggleDisplay() {
-        years = yearsCalc;
-        months = monthsCalc;
-        days = daysCalc;
+        setYears(yearsCalc);
+        setMonths(monthsCalc);
+        setDays(daysCalc);
     }
 
 
@@ -41,13 +42,13 @@ function Display() {
 
         <section>
             <div className="output">
-                <h1><span className="result">{years}</span> years</h1>
+                <h1><span className="result">{years === 0 ? '- -' : years}</span> years</h1>
             </div>
             <div className="output">
-            <h1><span className="result">{months}</span> months</h1>
+            <h1><span className="result">{months === 0 ? '- -' : months}</span> months</h1>
             </div>
             <div className="output">
-            <h1><span className="result">{days}</span> days</h1>
+            <h1><span className="result">{days === 0 ? '- -' : days}</span> days</h1>
             </div>
         </section>
 
