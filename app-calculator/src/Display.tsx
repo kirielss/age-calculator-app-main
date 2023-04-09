@@ -14,9 +14,9 @@ function Display() {
     const [years, setYears] = useState(0);
     const [months, setMonths] = useState(0);
     const [days, setDays] = useState(0);
-    let errorDay = ' ';
-    let errorMonth = ' ';
-    let errorYear = ' ';
+    const [errorDay, setErrorDay] = useState(' ');
+    const [errorMonth, setErrorMonth] = useState(' ');
+    const [errorYear, setErrorYear] = useState(' ');
     function toggleDisplay() {
         setYears(yearsCalc);
         setMonths(monthsCalc);
@@ -24,14 +24,14 @@ function Display() {
     }
     function validate() {
         if (day > 31 || day < 1) {
-            errorDay = 'Invalid day';
-        } else errorDay = ' ';
+            setErrorDay('Invalid day');
+        } else setErrorDay(' ');
         if (month > 12 || month < 1) {
-            errorMonth = 'Invalid month';
-        } else errorMonth = ' ';
+            setErrorMonth('Invalid month');
+        } else setErrorMonth(' ');
         if (year > 2022 || year < 1900) {
-            errorYear = 'Invalid year';
-        } else errorYear = ' ';
+            setErrorYear('Invalid year');
+        } else setErrorYear(' ');
     }
 
     useEffect(() => {
