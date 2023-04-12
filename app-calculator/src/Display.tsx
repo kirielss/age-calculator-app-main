@@ -39,7 +39,7 @@ function Display() {
     });
 
     return (
-        <div>
+        <div className="">
         <header>
             <div className="input">
                 <h2>DAY</h2>
