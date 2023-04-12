@@ -39,9 +39,9 @@ function Display() {
     });
 
     return (
-        <div className="">
+        <div 	>
         <header>
-            <div className="input">
+            <div className="input flex ">
                 <h2>DAY</h2>
                 <input type="number" name="day" id="day" min="1" max="31" required onChange={(e) => setDay(Number(e.target.value))}/>
                 <span id="errorDay">{errorDay}</span>
