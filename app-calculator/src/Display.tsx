@@ -23,15 +23,37 @@ function Display() {
         setDays(daysCalc);
     }
     function validate() {
-        if (day > 31 || day < 1) {
+        if (day > 31 || day < 1 || isNaN(day)) {
             setErrorDay('Invalid day');
-        } else setErrorDay(' ');
-        if (month > 12 || month < 1) {
+            errorStyleOn(0);
+        } else {
+            setErrorDay(' ');
+            errorStyleOff(0);
+        }
+        if (month > 12 || month < 1 || isNaN(month)) {
             setErrorMonth('Invalid month');
-        } else setErrorMonth(' ');
-        if (year > 2022 || year < 1900) {
+            errorStyleOn(1);
+        } else {
+            setErrorMonth(' ');
+            errorStyleOff(1);
+        }
+        if (year > 2022 || year < 1900 || isNaN(year)) {
             setErrorYear('Invalid year');
-        } else setErrorYear(' ');
+            errorStyleOn(2);
+        } else {
+            setErrorYear(' ');
+            errorStyleOff(2);
+        }
+    }
+
+    function errorStyleOn(param: number) {
+        document.getElementsByClassName("input-title")[param].classList.add('text-red-600');
+        document.getElementsByClassName("input-box")[param].classList.add('border-red-600');
+    }
+
+    function errorStyleOff(param: number) {
+        document.getElementsByClassName("input-title")[param].classList.remove('text-red-600');
+        document.getElementsByClassName("input-box")[param].classList.remove('border-red-600');
     }
 
     useEffect(() => {
@@ -39,40 +61,43 @@ function Display() {
     });
 
     return (
-        <div 	>
-        <header>
-            <div className="input flex ">
-                <h2>DAY</h2>
-                <input type="number" name="day" id="day" min="1" max="31" required onChange={(e) => setDay(Number(e.target.value))}/>
-                <span id="errorDay">{errorDay}</span>
+        <div className="bg-white p-5 shadow-2xl"	>
+            <div className="m-5">
+        <header className="flex" >
+            <div className="input px-5 ">
+                <h2 className="input-title">DAY</h2>
+                <input className="border w-20 input-box" type="string" name="day" id="day" required onChange={(e) => setDay(Number(e.target.value))}/>
+                <p className="text-red-600" id="errorDay">{errorDay}</p>
             </div>
-            <div className="input">
-                <h2>MONTH</h2>
-                <input type="number" name="month" id="month" min="1" max="12" required onChange={(e) => setMonth(Number(e.target.value))} />
-                <span id="errorMonth">{errorMonth}</span>
+            <div className="input px-5">
+                <h2 className="input-title">MONTH</h2>
+                <input className="border w-20 input-box" type="string" name="month" id="month" required onChange={(e) => setMonth(Number(e.target.value))} />
+                <p className="text-red-600" id="errorMonth">{errorMonth}</p>
             </div>
-            <div className="input">
-                <h2>YEAR</h2>
-                <input type="number" name="year" id="year" min="1900" max="2022" required onChange={(e) => setYear(Number(e.target.value))}/>
-                <span id="errorYear">{errorYear}</span>
+            <div className="input px-5">
+                <h2 className="input-title">YEAR</h2>
+                <input className="border w-20 input-box" type="string" name="year" id="year" required onChange={(e) => setYear(Number(e.target.value))}/>
+                <p className="text-red-600" id="errorYear">{errorYear}</p>
             </div>
 
-            <button onClick={() => toggleDisplay()}>Calculate</button>
+            <button className="  p-5 border rounded-full h-12 w-12 text-white flex justify-center items-center text-3xl" onClick={() => toggleDisplay()}>
+            ↓
+            </button>
         </header>
 
         <section>
             <div className="output">
-                <h1><span className="result">{years === 0 ? '- -' : years}</span> years</h1>
+                <h1><span className="result ">{years === 0 ? '- -' : years}</span> years</h1>
             </div>
             <div className="output">
-            <h1><span className="result">{months === 0 ? '- -' : months}</span> months</h1>
+            <h1><span className="result ">{months === 0 ? '- -' : months}</span> months</h1>
             </div>
             <div className="output">
-            <h1><span className="result">{days === 0 ? '- -' : days}</span> days</h1>
+            <h1><span className="result ">{days === 0 ? '- -' : days}</span> days</h1>
             </div>
         </section>
 
-
+        </div>
         </div>
 
         
